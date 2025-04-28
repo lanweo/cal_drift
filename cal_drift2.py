@@ -338,15 +338,6 @@ def transform_and_visualize_pro(aligned_data1, aligned_data2, scale_enabled=Fals
         rot_mat = quaternion_matrix([quat.x, quat.y, quat.z, quat.w])
         return concatenate_matrices(trans_mat, rot_mat)
 
-    
-
-    # 先对aligned_data1进行放缩
-    # if scale_enabled:
-    #     for i in range(len(aligned_data1)):
-    #         pos = aligned_data1[i][1].pose.pose.position
-    #         pos.x *= scale_factor
-    #         pos.y *= scale_factor
-    #         aligned_data1[i][1].pose.pose.position = pos
 
     # 构建基础变换矩阵（关键修正）
     T1_initial = get_transform_matrix(aligned_data1[0][1])  # 数据集1初始位姿
@@ -411,6 +402,7 @@ def transform_and_visualize_pro(aligned_data1, aligned_data2, scale_enabled=Fals
         x_scaled = center_x + (x1 - center_x) * scale_factor
         y_scaled = center_y + (y1 - center_y) * scale_factor
         traj1_trans[i] = (x_scaled, y_scaled)
+        transformed_data[i] = (transformed_data[i][0], (x_scaled, y_scaled))
     # 可视化
     fig, ax = plt.subplots(figsize=(12, 8))
     
