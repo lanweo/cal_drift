@@ -505,7 +505,7 @@ def main(bag_path, gt_topic, vio_topic):
         
         cumulative_error += np.sqrt((x_base - x_transformed) ** 2 + (y_base - y_transformed) ** 2)
     
-    drift_rate = (cumulative_error / real_total_distance) * 1000
+    drift_rate = (cumulative_error/len(aligned_other_msgs) / real_total_distance) * 1000
     
     print(f"累计欧氏距离误差: {cumulative_error:.4f} 米")
     print(f"漂移率: {drift_rate:.2f} ‰")
